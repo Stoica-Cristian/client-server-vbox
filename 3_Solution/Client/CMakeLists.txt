@@ -12,6 +12,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 find_package(Qt6 REQUIRED COMPONENTS Network)
+find_package(Qt6 REQUIRED COMPONENTS UiTools)
+find_package(Qt6 REQUIRED COMPONENTS Gui)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Charts)
 
 set(PROJECT_SOURCES
         main.cpp
@@ -25,6 +28,25 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         MyClient.cpp MyClient.h
+        worker.h worker.cpp
+        loginwindow.h loginwindow.cpp loginwindow.ui
+        registerwindow.h registerwindow.cpp registerwindow.ui
+        icons.qrc
+        virtualmachine.h virtualmachine.cpp
+        user.h user.cpp
+        addvmdialog.h addvmdialog.cpp addvmdialog.ui
+        settingsdialogvm.h settingsdialogvm.cpp settingsdialogvm.ui
+        settingsdialoguser.h settingsdialoguser.cpp settingsdialoguser.ui
+        operatingsystemwindow.h operatingsystemwindow.cpp operatingsystemwindow.ui
+        fileexplorer.h fileexplorer.cpp fileexplorer.ui
+        terminalline.h terminalline.cpp terminalline.ui
+        responseforchangedcredentialswindow.h responseforchangedcredentialswindow.cpp responseforchangedcredentialswindow.ui
+
+
+
+
+
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET Client APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -44,9 +66,9 @@ else()
     endif()
 endif()
 
-add_library(PNet STATIC Client.cpp Client.h CMakeLists.txt Constants.h Helpers.h IncludeMe.h IPEndpoint.cpp IPEndpoint.h IPVersion.h Network.cpp Network.h Packet.cpp Packet.h PacketException.h PacketManager.cpp PacketManager.h PacketType.h PResult.h Server.cpp Server.h Socket.cpp Socket.h SocketHandle.h SocketOption.h TCPConnection.cpp TCPConnection.h)
+add_library(PNet STATIC Client.cpp Client.h Constants.h Helpers.h IncludeMe.h IPEndpoint.cpp IPEndpoint.h IPVersion.h Network.cpp Network.h Packet.cpp Packet.h PacketException.h PacketManager.cpp PacketManager.h PacketType.h PResult.h Server.cpp Server.h Socket.cpp Socket.h SocketHandle.h SocketOption.h TCPConnection.cpp TCPConnection.h)
 
-target_link_libraries(Client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network PNet)
+target_link_libraries(Client PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::UiTools Qt6::Gui Qt6::Charts PNet)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
